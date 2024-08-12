@@ -1,0 +1,45 @@
+@extends('Admin.master')
+@section('content')
+<div class="page-wrapper mt-0 ">
+    <div class="card  bg-white  text-black" style="height: 100vh">
+        {{-- <img class="w-100"  src="{{ asset('assets/img/2.jpg')}}" alt="Card image"
+        style="height:720px; filter: blur(60px); object-fit: cover;">
+        <div class="card-img-overlay"> --}}
+    <!-- Page Content -->
+    <div class="content container-fluid">
+        <!-- Page Header -->
+
+
+    <div class="card mt-3">
+        <div class="d-flex justify-content-center mt-4">
+            <h4>Edit Question</h4>
+        </div>
+        <form action="{{route('update.question',$q->id)}}" method="POST">@csrf @method('put')
+            <div class="card-body">
+                    <label for="name"><b>Name</b></label>
+                    <input type="text" name="name" id="name" class="form-control @error('name') is-invalid @enderror" value="{{$q->name}}">
+                    @error('name')
+                     <span class="invalid-feedback">{{$message}}</span>
+                    @enderror
+            </div>
+
+             <div class="card-body">
+                <label for="category"><b>Question Category</b></label>
+                <select name="category_id" id="category" class="form-control">
+                        <option>Select category</option>
+                        @foreach ($categories as $category)
+                            <option value="{{$category->id}}"
+                             {{$category->id == $q->category_id ? 'selected' : ''}}
+                            >{{$category->name}}</option>
+                        @endforeach
+                </select>
+            </div>
+            <div class="card-footer border-0">
+                <a href="{{route('questions')}}" class="btn  wbtn text-white mb-3">Back</a>
+
+                <button class="btn wbtn text-white mb-3 float-end">Update</button>
+            </div>
+        </form>
+    </div>
+    </div></div>
+@endsection
